@@ -37,6 +37,7 @@ jobs:
             ls -alh 
 
   test-bank-beta:
+
     docker:
       - image: circleci/python
     steps:
