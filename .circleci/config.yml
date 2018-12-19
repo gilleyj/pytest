@@ -1,0 +1,69 @@
+version: 2.1
+orbs:
+  code-deploy: circleci/aws-code-deploy@0.0.3
+
+jobs:
+  build:
+    docker:
+      - image: circleci/python
+    steps:
+      - checkout
+      - run:
+          name: Initial Install
+          command: |
+            pip install -r requirements.txt --upgrade --user
+      - run:
+          name: Create Bundle
+          command: |
+            zip -r bundle.zip .
+      - save_cache:
+          key: project-bundle-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ./
+  test:
+    docker:
+      - image: circleci/python
+    steps:
+      - restore_cache:
+          key: project-bundle-{{ .Environment.CIRCLE_SHA1 }}
+      - run:
+          name: Do test 1
+          command: |
+            echo "OK"
+
+  deploy:
+    docker:
+      - image: circleci/python
+    steps:
+      - run: 
+          name: install AWS CLI...
+          command: sudo pip install awscli --upgrade
+      - restore_cache:
+          key: project-bundle-{{ .Environment.CIRCLE_SHA1 }}
+      - code-deploy/push-bundle:
+          application-name: pythontest
+          bundle-source: ~/bundle.zip
+          bundle-bucket: code-bucket-pythontest
+          bundle-key: pythontest-{BRANCH}-{SHORT_COMMIT}
+
+workflows:
+  version: 2.1
+  build_test_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy_approval_pythontest:
+          requires:
+            - test
+          type: approval
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - deploy_approval_pythontest
+          filters:
+            branches:
+              only: deploy_approval_pythontest
