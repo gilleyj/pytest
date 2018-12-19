@@ -30,6 +30,10 @@ jobs:
           name: Do test 1
           command: |
             echo "OK"
+      - run:
+          name: Do test 2
+          command: |
+            ls -alh 
 
   deploy:
     docker:
