@@ -15,7 +15,7 @@ jobs:
       - run:
           name: Create Bundle
           command: |
-            zip -r bundle.zip .
+            zip -x *.git* -x *.circleci* -r bundle.zip .
       - save_cache:
           key: project-bundle-{{ .Environment.CIRCLE_SHA1 }}
           paths:
