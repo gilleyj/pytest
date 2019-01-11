@@ -69,7 +69,7 @@ jobs:
           name: show the cache
           command: |
             ls -alh
-            env
+            env | sort
       - code-deploy/push-bundle:
           application-name: pytest
           bundle-source: ./
