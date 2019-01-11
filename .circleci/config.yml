@@ -73,7 +73,8 @@ jobs:
           application-name: pytest
           bundle-source: ./
           bundle-bucket: pytestcodedeploy
-          bundle-key: pytest-{BRANCH}-{SHORT_COMMIT}
+          bundle-key: pytest-${BRANCH}-${SHORT_COMMIT}
+aws deploy create-deployment --application-name pytest --s3-location bucket=pytestcodedeploy,key=pytest-{BRANCH}-{SHORT_COMMIT}.zip,bundleType=zip,eTag=c30cc3e45acc66f3197f72d4f926a166 --deployment-group-name <deployment-group-name> --deployment-config-name <deployment-config-name> --description <description>
 
 workflows:
   version: 2.1
@@ -94,7 +95,10 @@ workflows:
           filters:
             branches:
               only: master
-      - deploy:
+      - deployment:
+          codedeploy:
+            pytest:
+              deployment_group: pytest-deploy-group
           requires:
             - deploy_approval_pythontest
           filters:
