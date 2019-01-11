@@ -92,10 +92,17 @@ workflows:
       - test-bank-alpha:
           requires:
             - build
-      - deploy:
+      - deploy_approval_pythontest:
           requires:
             - test-bank-alpha
             - test-bank-beta
+          type: approval
+          filters:
+            branches:
+              only: master
+      - deploy:
+          requires:
+            - deploy_approval_pythontest
           filters:
             branches:
               only: master
