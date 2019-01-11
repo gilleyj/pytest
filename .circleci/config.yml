@@ -73,12 +73,12 @@ jobs:
           application-name: pytest
           bundle-source: ./
           bundle-bucket: pytestcodedeploy
-          bundle-key: pytest-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          bundle-key: pytest-${CIRCLE_BRANCH }-${CIRCLE_SHA1}
       - code-deploy/deploy-bundle:
           application-name: pytest
           deployment-group: pytest-deploy-group
           bundle-bucket: pytestcodedeploy
-          bundle-key: pytest-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+          bundle-key: pytest-${CIRCLE_BRANCH }-${CIRCLE_SHA1}
 
 workflows:
   version: 2.1
