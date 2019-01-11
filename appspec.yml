@@ -5,18 +5,18 @@ files:
     destination: /app
 hooks:
   BeforeInstall:
-    - location: cat /etc/os-release && echo "BeforeInstall"
+    - location: scripts/do_before_install.sh
       timeout: 300
       runas: root
   AfterInstall:
-    - location: cat /etc/os-release && echo "AfterInstall"
+    - location: scripts/do_after_install.sh
       timeout: 300
       runas: root
   ApplicationStart:
-    - location: cat /etc/os-release && echo "ApplicationStart"
+    - location: scripts/do_application_start.sh
       timeout: 300
       runas: root
   ApplicationStop:
-    - location: cat /etc/os-release && echo "ApplicationStop"
+    - location: scripts/do_application_stop.sh
       timeout: 300
       runas: root
