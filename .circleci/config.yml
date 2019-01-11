@@ -68,7 +68,8 @@ jobs:
       - run:
           name: show the cache
           command: |
-            ls -alh 
+            ls -alh
+            env
       - code-deploy/push-bundle:
           application-name: pytest
           bundle-source: ./
