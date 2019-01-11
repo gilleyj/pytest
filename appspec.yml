@@ -1,0 +1,22 @@
+version: 0.0
+os: linux
+files:
+  - source: /
+    destination: /app
+hooks:
+  BeforeInstall:
+    - location: cat /etc/os-release && echo "BeforeInstall"
+      timeout: 300
+      runas: root
+  AfterInstall:
+    - location: cat /etc/os-release && echo "AfterInstall"
+      timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: cat /etc/os-release && echo "ApplicationStart"
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: cat /etc/os-release && echo "ApplicationStop"
+      timeout: 300
+      runas: root
