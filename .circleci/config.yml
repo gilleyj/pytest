@@ -70,10 +70,10 @@ jobs:
           command: |
             ls -alh 
       - code-deploy/push-bundle:
-          application-name: pythontest
-          bundle-source: ~/bundle.zip
-          bundle-bucket: code-bucket-pythontest
-          bundle-key: pythontest-{BRANCH}-{SHORT_COMMIT}
+          application-name: pytest
+          bundle-source: ~/
+          bundle-bucket: pytestcodedeploy
+          bundle-key: pytest-{BRANCH}-{SHORT_COMMIT}
 
 workflows:
   version: 2.1
