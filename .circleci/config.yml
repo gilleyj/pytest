@@ -71,7 +71,7 @@ jobs:
             ls -alh 
       - code-deploy/push-bundle:
           application-name: pytest
-          bundle-source: ~/
+          bundle-source: ./
           bundle-bucket: pytestcodedeploy
           bundle-key: pytest-{BRANCH}-{SHORT_COMMIT}
 
